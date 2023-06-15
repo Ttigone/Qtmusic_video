@@ -8,14 +8,20 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 
 qt_add_executable(appQtmusic_video
-    main.cpp
+    App.cpp
 )
 
 qt_add_qml_module(appQtmusic_video
     URI Qtmusic_video
     VERSION 1.0
-    QML_FILES main.qml 
+    QML_FILES App.qml
 )
+
+set(resources_files resources.qrc)
+qt6_add_resources(sources ${resources_files})
+
+target_sources(appQtmusic_video PRIVATE ${sources})
+
 
 set_target_properties(appQtmusic_video PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
