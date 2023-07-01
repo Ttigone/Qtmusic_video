@@ -3,7 +3,7 @@ import QtQuick.Controls 2.5
 import Qt5Compat.GraphicalEffects
 Item {
 
-    property string img_src: "qrc:/images/player"
+    property string img_src: "qrc:/images/boat"
 
     property int border_radius: 5
 

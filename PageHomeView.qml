@@ -19,12 +19,13 @@ RowLayout {
         Layout.preferredWidth: 200
         Layout.fillHeight: true
         padding: 0
+//        leftInset: 0
 
-//        background: Rectangle {
-//            color: "#AA00AAAA"     // boarder   和  width  有冲突
-//        }
+        background: Rectangle {
+            color: "#AA00AAAA"     // boarder   和  width  有冲突
+        }
 
-        ColumnLayout {
+        ColumnLayout {             // 左边界没有 与 Frame 的左边界对齐
             anchors.fill: parent
 
             Item {
@@ -32,41 +33,56 @@ RowLayout {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 150
 
-                MusicRoundImage {
+                MusicRoundImage {              // 头像
                     anchors.centerIn:parent
                     height: 100
                     width:100
-                    border_radius: 100
+                    border_radius: 100         // 弧度
                 }
 
             }
 
-            ListView {   // 列表
-                id:menu_view
-                height: parent.height
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-    //            width: 80
-                model:ListModel {
-                    id:menu_view_model
+//            RowLayout {
+//                Item {
+//                    width: -5
+//                }
+
+                ListView {   // 列表
+                    id:menu_view
+                    height: parent.height
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+//                    leftMargin: 0
+    //                Layout.preferredWidth: 150
+    //                visible: false            // 整个列表是往右偏了一点
+    //                width: 80
+                    model:ListModel {
+                        id: menu_view_model
+                    }
+                    delegate: menu_view_delegate
+                    highlight: Rectangle {
+                        color: "#aa73a7ab"
+                    }
+                    highlightMoveDuration: 0   // 切换时间
+                    highlightResizeDuration: 0  // 边框可伸缩时的平滑过度时间
                 }
-                delegate:menu_view_delegate
-                highlight: Rectangle {
-                    color: "#aa73a7ab"
-                }
-                highlightMoveDuration: 0   // 切换时间
-                highlightResizeDuration: 0  // 边框可伸缩时的平滑过度时间
-            }
+
+//                Item {
+//                    width: 200
+//                }
+//            }
+
         }
 
         Component {     // 每个小方块
             id:menu_view_delegate
-            Rectangle {
+            Rectangle {                         // Rec 在 Frame 中摆放有问题
                 id:menu_view_delegate_item
                 height: 50
-                width: 196  // 宽度 不是  frame 的 200
+//                width: 200 // 宽度 不是  frame 的 200
+                anchors.left: Frame.left               // 有效  但部分 List 属性失效
                 color: "#AA00AAAA"
-                RowLayout {
+                RowLayout {              // 小方块中的列排列元素       no
                     anchors.fill: parent
                     anchors.centerIn: parent
                     spacing:15
@@ -101,10 +117,16 @@ RowLayout {
                     }
                     onClicked: {
                         repeater.itemAt(menu_view_delegate_item.ListView.view.currentIndex).visible = false  // 将当前的页面设置为 false
+//                        repeater.itemAt(menu_view_delegate_item.ListView.view.currentIndex).color = "#00BBBB" // 将当前的页面设置为 false
                         menu_view_delegate_item.ListView.view.currentIndex = index
                         var loader = repeater.itemAt(index)
                         loader.visible = true
                         loader.source = qml_list[index].qml + ".qml"
+//                        Rectangle: {
+//                            color = "#00BBBB"
+//                        }
+
+//                        menu_view_delegate_item.ListView.view.color = "#00AAAA"
                     }
                 }
             }

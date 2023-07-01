@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.3
 Rectangle {
 // 底部工具栏
     Layout.fillWidth: true
+//    Layout.fillHeight: true
     height: 60
 //            color: "#CCFFFF"
     color: "#BBBFBF"
