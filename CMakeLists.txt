@@ -14,9 +14,14 @@ qt_add_executable(appQtmusic_video
 qt_add_qml_module(appQtmusic_video
     URI Qtmusic_video
     VERSION 1.0
-    QML_FILES App.qml LayoutHeaderView.qml LayoutBottonView.qml PageHomeView.qml
-    MusicIconBotton.qml
-
+    QML_FILES App.qml
+    LayoutHeaderView.qml LayoutBottonView.qml PageHomeView.qml
+    MusicIconBotton.qml MusicToolBotton.qml MusicRoundImage.qml
+    DetailRecommendPageView.qml
+    DetailSearchPageView.qml
+    DetailLocalPageView.qml
+    DetailHistoryPageView.qml
+    DetailFavoritePageView.qml
 )
 
 set(resources_files resources.qrc)

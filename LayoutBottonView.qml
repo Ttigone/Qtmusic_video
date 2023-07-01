@@ -78,30 +78,35 @@ Rectangle {
             icon_source: "qrc:/images/previous"
             icon_width: 32
             icon_height: 32
+            tool_tip: "上一首"
         }
         MusicIconBotton {
 //            Layout.preferredWidth: 50
             icon_source: "qrc:/images/stop"
             icon_width: 32
             icon_height: 32
+            tool_tip: "停止"
         }
         MusicIconBotton {
 //            Layout.preferredWidth: 50
             icon_source: "qrc:/images/next"
             icon_width: 32
             icon_height: 32
+            tool_tip: "下一首"
         }
         MusicIconBotton {
 //            Layout.preferredWidth: 50
             icon_source: "qrc:/images/favorite"
             icon_width: 32
             icon_height: 32
+            tool_tip: "最爱"
         }
         MusicIconBotton {
 //            Layout.preferredWidth: 50
             icon_source: "qrc:/images/repeat"
             icon_width: 32
             icon_height: 32
+            tool_tip: "重复"
         }
         Item {
             Layout.preferredWidth: parent.width / 10
