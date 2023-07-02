@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 
 qt_add_executable(appQtmusic_video
-    App.cpp
+    App.cpp httputils.cpp
 )
 
 qt_add_qml_module(appQtmusic_video

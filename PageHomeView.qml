@@ -14,23 +14,33 @@ RowLayout {
     ]
 
 
+    // 左边
     Frame {
 
-        Layout.preferredWidth: 200
+//        Layout.preferredWidth: 200
         Layout.fillHeight: true
         padding: 0
+        width: 200
+        Layout.margins: 0
+//        radius: 0
 //        leftInset: 0
 
         background: Rectangle {
-            color: "#AA00AAAA"     // boarder   和  width  有冲突
+            color: "powderblue"     // boarder   和  width  有冲突
+            radius: 0
+            border.width: 0
+            Layout.margins: 0
         }
+
+//        background: color = "#AA00GGGG"
+
 
         ColumnLayout {             // 左边界没有 与 Frame 的左边界对齐
             anchors.fill: parent
 
             Item {
 
-                Layout.fillWidth: true
+                Layout.preferredWidth: 200
                 Layout.preferredHeight: 150
 
                 MusicRoundImage {              // 头像
@@ -42,46 +52,45 @@ RowLayout {
 
             }
 
-//            RowLayout {
-//                Item {
-//                    width: -5
-//                }
+            ListView {   // 列表
+                id:menu_view
+                height: parent.height
+                Layout.fillHeight: true
+//                anchors.fill: parent
+//                anchors.leftChanged: 0
+//                Layout.preferredWidth: 200
+//                Layout.fillWidth: true
 
-                ListView {   // 列表
-                    id:menu_view
-                    height: parent.height
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-//                    leftMargin: 0
-    //                Layout.preferredWidth: 150
-    //                visible: false            // 整个列表是往右偏了一点
-    //                width: 80
-                    model:ListModel {
-                        id: menu_view_model
-                    }
-                    delegate: menu_view_delegate
-                    highlight: Rectangle {
-                        color: "#aa73a7ab"
-                    }
-                    highlightMoveDuration: 0   // 切换时间
-                    highlightResizeDuration: 0  // 边框可伸缩时的平滑过度时间
+//                width: parent.width    // 右偏
+//                width: 200
+//                leftMargin: 0
+//                Layout.preferredWidth: 150
+//                visible: false            // 整个列表是往右偏了一点
+//                width: 80
+                model:ListModel {
+                    id: menu_view_model
                 }
-
-//                Item {
-//                    width: 200
-//                }
-//            }
+                delegate: menu_view_delegate
+                highlight: Rectangle {
+                    color: "blue"          // 背景的亮光色
+                }
+                highlightMoveDuration: 0   // 切换时间
+                highlightResizeDuration: 0  // 边框可伸缩时的平滑过度时间
+            }
 
         }
 
         Component {     // 每个小方块
             id:menu_view_delegate
+//            Layout.leftMargin: 0
+//            Layout.preferredWidth: true
             Rectangle {                         // Rec 在 Frame 中摆放有问题
                 id:menu_view_delegate_item
                 height: 50
-//                width: 200 // 宽度 不是  frame 的 200
-                anchors.left: Frame.left               // 有效  但部分 List 属性失效
-                color: "#AA00AAAA"
+//                anchors.left: Frame.left               // 有效  但部分 List 属性失效
+//                anchors.centerIn: parent
+                width: 200 // 宽度 不是  frame 的 200
+                color: "#AAb0e0e6"           // 方框原本的颜色
                 RowLayout {              // 小方块中的列排列元素       no
                     anchors.fill: parent
                     anchors.centerIn: parent
@@ -102,7 +111,7 @@ RowLayout {
                         height:50
                         font.family: window.m_font_family
                         font.pointSize: 12
-                        color: "#ffffff"
+                        color: "Coral"
                     }
                 }
 
@@ -110,10 +119,10 @@ RowLayout {
                     anchors.fill: parent
                     hoverEnabled: true
                     onEntered: {
-                        color = "#aa73a7ab"
+                        color = "skyblue"           // 会  和 方框原本的颜色重叠在一起
                     }
                     onExited: {
-                        color = "#AA00AAAA"
+                        color = "#AAb0e0e6"
                     }
                     onClicked: {
                         repeater.itemAt(menu_view_delegate_item.ListView.view.currentIndex).visible = false  // 将当前的页面设置为 false
@@ -147,6 +156,7 @@ RowLayout {
         Loader {
             visible: false    // 默认为 false 方便切换的时候显示不同的页面
             Layout.fillWidth: true
+//            Layout.preferredWidth: true
             Layout.fillHeight: true
         }
     }

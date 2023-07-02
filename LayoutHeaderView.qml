@@ -8,7 +8,7 @@ ToolBar {
     Layout.fillWidth: true
     height: 32
     background: Rectangle {
-        color: "#00AAAA"
+        color: "#AA00AAAA"
     }
 
     RowLayout {

@@ -8,7 +8,7 @@ Rectangle {
 //    Layout.fillHeight: true
     height: 60
 //            color: "#CCFFFF"
-    color: "#BBBFBF"
+    color: "#AABBBFBF"
     RowLayout {
         anchors.fill: parent
         Item {
