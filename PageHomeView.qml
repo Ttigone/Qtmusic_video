@@ -5,6 +5,8 @@ import QtQml 2.12
 
 RowLayout {
 
+    spacing: 0
+
     property var qml_list: [
         { icon: "recommend-white", value: "推荐内容", qml: "DetailRecommendPageView" },
         { icon: "cloud-white", value: "搜索音乐", qml: "DetailSearchPageView" },

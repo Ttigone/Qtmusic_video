@@ -22,6 +22,8 @@ qt_add_qml_module(appQtmusic_video
     DetailLocalPageView.qml
     DetailHistoryPageView.qml
     DetailFavoritePageView.qml
+    MusicBannerView.qml
+    MusicGridHotView.qml
 )
 
 set(resources_files resources.qrc)

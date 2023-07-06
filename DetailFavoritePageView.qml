@@ -1,11 +1,19 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.3
 
-Item {
+Rectangle {
 
+    Layout.fillWidth: true
+    width: parent.width
+    height: 60
+    color: "#00000000"
     Text {
-        text: qsTr("最喜欢的...")
+        x: 10
+        verticalAlignment: Text.AlignBottom
+        text: qsTr("最喜欢")
         font.family: window.m_font_family
-        font.pixelSize: 18
+        font.pixelSize: 25
     }
+
 }

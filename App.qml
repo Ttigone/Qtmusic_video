@@ -23,21 +23,6 @@ ApplicationWindow {
 
     }
 
-    Component.onCompleted: {
-        testHttp()
-    }
-
-    function testHttp() {
-
-        function onReply(reply) {
-            console.log(reply)
-            http.onReplySignal.disconnect(onReply)
-        }
-
-        http.onReplySignal.connect(onReply)
-        http.connet("banner")
-    }
-
     ColumnLayout {
         anchors.fill: parent
         spacing: 0
