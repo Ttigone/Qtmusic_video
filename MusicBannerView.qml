@@ -11,7 +11,7 @@ Frame {
     background: Rectangle {
         color: "#00000000"
     }
-
+/*
 //    MouseArea {                     // 进入时 鼠标形状发生改变
 //        anchors.fill: parent
 //        cursorShape: Qt.PointingHandCursor
@@ -178,7 +178,7 @@ Frame {
 //    function get_right_image_src() {
 //        return banner_list.length ? banner_list[(current + 1 + banner_list.length) % banner_list.length].imageUrl  : ""
 //    }
-
+*/
     PathView {
         id: banner_view
         width: parent.width
@@ -218,7 +218,19 @@ Frame {
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
                     if (banner_view.currentIndex === index) {
-
+                        var item = banner_view.model[index]
+                        var targetId = item.targetId + ""
+                        var targetType = item.targetType + ""       // 1: 单曲   10: 专辑   1000: 歌单
+                        switch(targetType) {
+                            case "1":    // 播放单曲
+                                break
+                            case "10":   // 打开专辑
+                                break
+                            case "1000":
+                                PageHomeView.showPlayList(targetId, targetType)           // BUG
+                                break
+                        }
+                        console.log(targetId, targetType)
                     } else {
                         banner_view.currentIndex = index
                     }

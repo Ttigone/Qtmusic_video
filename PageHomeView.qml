@@ -5,16 +5,20 @@ import QtQml 2.12
 
 RowLayout {
 
-    spacing: 0
+
 
     property var qml_list: [
-        { icon: "recommend-white", value: "推荐内容", qml: "DetailRecommendPageView" },
-        { icon: "cloud-white", value: "搜索音乐", qml: "DetailSearchPageView" },
-        { icon: "local-white", value: "本地音乐", qml: "DetailLocalPageView" },
-        { icon: "history-white", value: "播放历史", qml: "DetailHistoryPageView" },
-        { icon: "favorite-big-white", value: "我喜欢的", qml: "DetailFavoritePageView" }
+        { icon: "recommend-white", value: "推荐内容", qml: "DetailRecommendPageView", menu: true},
+        { icon: "cloud-white", value: "搜索音乐", qml: "DetailSearchPageView", menu: true },
+        { icon: "local-white", value: "本地音乐", qml: "DetailLocalPageView", menu: true },
+        { icon: "history-white", value: "播放历史", qml: "DetailHistoryPageView", menu: true },
+        { icon: "favorite-big-white", value: "我喜欢的", qml: "DetailFavoritePageView", menu: true },
+        { icon: "", value: "", qml: "DetailPlayListPageView", menu: false }
     ]
 
+    property int default_index: 0
+
+    spacing: 0
 
     // 左边
     Frame {
@@ -127,33 +131,31 @@ RowLayout {
                         color = "#AAb0e0e6"
                     }
                     onClicked: {
+//                        hide_play_list()
                         repeater.itemAt(menu_view_delegate_item.ListView.view.currentIndex).visible = false  // 将当前的页面设置为 false
 //                        repeater.itemAt(menu_view_delegate_item.ListView.view.currentIndex).color = "#00BBBB" // 将当前的页面设置为 false
                         menu_view_delegate_item.ListView.view.currentIndex = index
                         var loader = repeater.itemAt(index)
                         loader.visible = true
                         loader.source = qml_list[index].qml + ".qml"
-//                        Rectangle: {
-//                            color = "#00BBBB"
-//                        }
-
-//                        menu_view_delegate_item.ListView.view.color = "#00AAAA"
                     }
                 }
             }
         }
 
         Component.onCompleted: {    // 一开始是第一个页面
-            menu_view_model.append(qml_list)
-            var loader = repeater.itemAt(0)  // 取第一个页面
+            menu_view_model.append(qml_list.filter(item=>item.menu))
+            var loader = repeater.itemAt(default_index)  // 取第一个页面
             loader.visible = true
-            loader.source = qml_list[0].qml + ".qml"
+            loader.source = qml_list[default_index].qml + ".qml"
+
+            menu_view.currentIndex = default_index
         }
     }
 
     Repeater {   // 页面重叠
         id: repeater
-        model: qml_list.length
+        model: qml_list.filter(item=>item.menu).length
 
         Loader {
             visible: false    // 默认为 false 方便切换的时候显示不同的页面
@@ -161,6 +163,21 @@ RowLayout {
 //            Layout.preferredWidth: true
             Layout.fillHeight: true
         }
+    }
+
+    function showPlayList(targetId = "", targetType = "10") {
+        repeater.itemAt(menu_view.currentIndex).visible = false  // 将当前的页面设置为 false
+        var loader = repeater.itemAt(5)
+        loader.visible = true
+        loader.source = qml_list[5].qml + ".qml"
+        loader.item.targetType = targetType
+        loader.item.targetId = targetId
+    }
+
+    function hidePlayList() {
+        repeater.itemAt(menu_view.currentIndex).visible = true
+        var loader = repeater.itemAt(5)
+        loader.visible = false
     }
 
 }

@@ -9,14 +9,14 @@ Item {
     Grid {
         id: grid_layout
         anchors.fill: parent
-        columns: 5             // 5 列
+        columns: 3            // 5 列
         Repeater {  //  设置  每一个 列
             id: gridRepeater
 
             Frame {
-                padding: 10                   // 间距
-                width: parent.width * 0.2
-                height: parent.height * 0.2 + 30
+                padding: 5
+                width: parent.width * 0.333
+                height: parent.height * 0.1
 
                 background: Rectangle {
                     id: background
@@ -25,27 +25,46 @@ Item {
                 clip: true
                 MusicRoundImage {
                     id: img
-                    width: parent.width
-                    height: parent.width
-                    img_src: modelData.coverImgUrl
+                    width: parent.width * 0.25
+                    height: parent.width * 0.25
+                    img_src: modelData.album.picUrl
+                }
+
+                Text {
+                    id: name
+                    height: 30
+                    anchors {
+                        left: img.right
+                        verticalCenter: parent.verticalCenter
+                        bottomMargin: 10
+                        leftMargin: 5
+                    }
+                    text: modelData.artists[0].name
+                    font {
+                        family: window.m_font_family
+                        pixelSize: 11
+                    }
+                    width: parent.width * 0.72
+                    elide: Qt.ElideMiddle  // 超出部分自动省略  展示中间
                 }
 
                 Text {
                     height: 30
-                    width: parent.width
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
                     anchors {
-                        top: img.bottom
-                        horizontalCenter: parent.horizontalCenter
+                        left: img.right
+                        top: name.bottom
+                        verticalCenter: parent.verticalCenter
+                        bottomMargin: 10
+                        leftMargin: 5
                     }
                     text: modelData.name
                     font {
                         family: window.m_font_family
-    //                    pointSize: 10
                     }
+                    width: parent.width * 0.72
                     elide: Qt.ElideMiddle  // 超出部分自动省略  展示中间
                 }
+
 
                 MouseArea {
                     anchors.fill: parent
@@ -56,11 +75,6 @@ Item {
                     }
                     onExited: {
                         background.color = "#00000000"
-                    }
-
-                    onClicked: {
-                        var item = gridRepeater.model[index]
-                        PageHomeView.showPlayList(item.id, "1000")
                     }
                 }
             }
